@@ -11,6 +11,7 @@ import { GoogleMapsAPIWrapper } from '@agm/core';
 import { HttpModule } from '@angular/http';
 import { LoggedInGuard } from './logged-in.guard';
 import { LoginService} from './services/login.service'
+import { PrivateParkingService} from './services/privateparking.service
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [GoogleMapsAPIWrapper,LoginService,LoggedInGuard],
+  providers: [GoogleMapsAPIWrapper,LoginService,LoggedInGuard,PrivateParkingService],
   declarations: [ AppComponent,LoginComponent,SearchComponent ],
   bootstrap: [ AppComponent ]
 })
