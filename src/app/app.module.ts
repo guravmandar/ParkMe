@@ -9,10 +9,12 @@ import { SearchComponent} from './component/search.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import { HttpModule } from '@angular/http';
+import { LoggedInGuard } from './logged-in.guard';
+import { LoginService} from './services/login.service'
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'search', component: SearchComponent},
   { path: 'Home', component: AppComponent },
 ];
 
@@ -29,7 +31,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [GoogleMapsAPIWrapper],
+  providers: [GoogleMapsAPIWrapper,LoginService,LoggedInGuard],
   declarations: [ AppComponent,LoginComponent,SearchComponent ],
   bootstrap: [ AppComponent ]
 })

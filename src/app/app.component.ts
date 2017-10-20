@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
-import { ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
-import { MapsAPILoader,AgmMap } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { Router } from '@angular/router';
+import { LoginService } from './services/login.service'
 @Component({
   selector: 'app-root',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title: string = '';
   lat: number = 51.678418;
   lng: number = 7.809007;
-
-
+  Hide: boolean = false;
   public latitude: number;
   public longitude: number;
 
@@ -26,16 +26,28 @@ export class AppComponent {
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
-
-  constructor(
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
+  private loggedIn: boolean;
+  private loggedInUser: string;
+  constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,private router: Router,private LoginService: LoginService) {
     
-  ) { 
+    this.loggedIn = !!localStorage.getItem('Username');
+    if( this.loggedIn == true){
+      this.loggedInUser = localStorage.getItem('Username');
+    }
+  
+
+    if (this.loggedIn == false) {
+      this.router.navigate(['login']);
+    }
+    else {
+      this.router.navigate(['../search']);
+    }
+
 
   }
 
   ngOnInit() {
+    
     //set google maps defaults
     this.zoom = 4;
     this.latitude = 39.8282;
@@ -90,7 +102,7 @@ export class AppComponent {
             let list = new Object()
 
             for (var i = 0; i < results.length; i++) {
-              debugger;
+
               self.latLong.push({ 'latitude': results[i].geometry.location.lat(), 'longitude': results[i].geometry.location.lng() });
 
             }
@@ -113,5 +125,9 @@ export class AppComponent {
     }
   }
 
-  
+  Logout(){
+    debugger;
+    this.LoginService.logout();
+  }
+
 }

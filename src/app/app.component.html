@@ -1,18 +1,36 @@
-<ul>
-    <li>
-        <a [routerLink]="['./login']">Login</a>
-    </li>
-    <li>
-        <a [routerLink]="['./search']">Search</a>
-    </li>
-</ul>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Park Me</a>
+      </div>
+      <ul class="nav navbar-nav">
+      
+        <li class="dropdown"> <a [routerLink]="['./search']">Search</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Booking History</a></li>
+            <li><a href="#">My wishlist</a></li>
+        
+          </ul>
+        </li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li *ngIf ="loggedIn == true"><a href="#"><span class="glyphicon glyphicon-user"></span>Welcome {{loggedInUser}}!</a></li>
+        <li *ngIf ="loggedIn == false"><a [routerLink]="['./login']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li *ngIf ="loggedIn == false"><a [routerLink]="['./login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li (click)="Logout()" *ngIf ="loggedIn == true"><a  href = '#'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
 <router-outlet></router-outlet>
 <h1>{{ title }}</h1>
 
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 
-<div class="container">
+<div class="container" *ngIf ="loggedIn == true">
 
     <h1>Search Parking</h1>
     <div class="row">

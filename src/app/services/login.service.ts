@@ -9,13 +9,12 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LoginService {
-
+    private loggedIn = false;
 
     constructor(private http: Http) {
+        this.loggedIn = !!localStorage.getItem('Username');
+   
     }
-
-
-
 
 
     //Extract result json data in specified format of rxjsObservable.
@@ -30,7 +29,7 @@ export class LoginService {
 
     //Handle error if any.
     private handleError(error: Response | any) {
-        
+      
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
@@ -46,8 +45,17 @@ export class LoginService {
     //Gets columns of alert explorer.
     getUserCredentials(usernmame: string,password:string): Observable<any> {
         
-        return this.http.get("http://localhost:5000/getUserParkMe?Username=ajinkya&password=parkar")
-            .map(this.extractData)
+        return this.http.get("http://localhost:5000/getUserParkMe?Username="+usernmame+"&Password=" + password)
+        .map(res => res.json())
+            .map((res) => {
+                
+                if(res == true) {
+                  localStorage.setItem("Username", usernmame);
+                  this.loggedIn = true;
+                }
+                return res;
+            })
+
            // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
            .catch(this.handleError)
     }
@@ -63,7 +71,14 @@ export class LoginService {
 
         return body.results || {};
     }
-
+    logout() {
+        localStorage.removeItem("Username");
+        this.loggedIn = false;
+      }
+    
+      isLoggedIn() {
+        return this.loggedIn;
+      }
 
 
 }
