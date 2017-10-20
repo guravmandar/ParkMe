@@ -37,7 +37,7 @@ module.exports = function(config) {
 
       // Polyfills
       'node_modules/core-js/client/shim.js',
-
+      '@agm/core': 'node_modules/@agm/core/core.umd.js',
       // zone.js
       'node_modules/zone.js/dist/zone.js',
       'node_modules/zone.js/dist/long-stack-trace-zone.js',

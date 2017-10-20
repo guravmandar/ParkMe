@@ -1,0 +1,63 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand header-text">Park Me Login</a>
+        </div>
+    </div>
+</nav>
+
+<hr />
+
+<div class="container-fluid">
+    <form name="loginForm">
+        <div id="login">
+            <div class="row  justify-content-md-center">
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                </div>
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                    Sign in to start your session
+                </div>
+            </div>
+            <br/>
+
+            <div class="row  justify-content-md-center">
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                </div>
+                <div class="form-group">
+                    <div class="col col-md-1  col-lr-1 col-xl-1">
+                        <label class="control-label">Username:</label>
+                    </div>
+                    <div class="col col-md-3  col-lr-3 col-xl-3">
+                        <input id="cssp_login_username" type="text" class="form-control" autofocus="autofocus" name="username" [(ngModel)]="username"
+                        />
+                        <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                    </div>
+                    <label *ngIf="invalid_login">Wrong username/password</label>
+                </div>
+            </div>
+            <br/>
+            <div class="row  justify-content-md-center">
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                </div>
+                <div class="form-group">
+                    <div class="col col-md-1  col-lr-1 col-xl-1">
+                        <label class="control-label">Password:</label>
+                    </div>
+                    <div class="col col-md-3  col-lr-3 col-xl-3">
+                        <input id="cssp_login_password" type="password" class="form-control" name="password" [(ngModel)]="password" />
+                        <!-- <i class="glyphicon glyphicon-lock form-control-feedback"></i> -->
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row  justify-content-md-center">
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                </div>
+                <div class="col col-md-4  col-lr-4 col-xl-4 text-center">
+                    <!-- <a routerLink="/main" routerLinkActive="active"><button type="submit" class="btn btn-primary loginButton" id="cssp_login_submit">Log in</button></a> -->
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Log in</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
