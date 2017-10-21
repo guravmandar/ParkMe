@@ -60,6 +60,25 @@ export class LoginService {
            .catch(this.handleError)
     }
 
+        //Gets columns of alert explorer.
+        setUserCredentials(usernmame: string,password:string): Observable<any> {
+            
+            return this.http.get("http://localhost:5000/setUserParkMe?Username="+usernmame+"&Password=" + password)
+            .map(res => res.json())
+                .map((res) => {
+                    
+                    if(res == true) {
+                      localStorage.setItem("Username", usernmame);
+                      this.loggedIn = true;
+                    }
+                    return res;
+                })
+    
+               // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+               .catch(this.handleError)
+        }
+
+    
 
 
     //extract settings data

@@ -32,12 +32,13 @@ export class LoginComponent implements OnChanges  {
       .subscribe(queryResults => {
        
         if(queryResults == true){
+          alert("Welcome!");
           window.location.reload();
           this.invalid_login = false;
           this.router.navigate(['search']);
         }
         else{
-         
+         alert("Invalid User!");
           this.invalid_login = true;
           this.router.navigate(['login']);
         }
@@ -45,6 +46,17 @@ export class LoginComponent implements OnChanges  {
 
      
   }
+  setUserCredentials() {
+    debugger;
+       this.LoginService.setUserCredentials(this.username,this.password)
+         .subscribe(queryResults => {
+          
+          alert("Successflly added new user");
+         });
+   
+        
+     }
+
   onSubmit() {
     
     if (this.username == '' || this.password == '') {
