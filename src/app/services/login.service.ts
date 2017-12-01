@@ -49,8 +49,9 @@ export class LoginService {
         .map(res => res.json())
             .map((res) => {
                 
-                if(res == true) {
+                if(res != false) {
                   localStorage.setItem("Username", usernmame);
+                  localStorage.setItem("UserId", res);
                   this.loggedIn = true;
                 }
                 return res;
@@ -66,12 +67,7 @@ export class LoginService {
             return this.http.get("http://localhost:5000/setUserParkMe?Username="+usernmame+"&Password=" + password)
             .map(res => res.json())
                 .map((res) => {
-                    
-                    if(res == true) {
-                      localStorage.setItem("Username", usernmame);
-                      this.loggedIn = true;
-                    }
-                    return res;
+                   
                 })
     
                // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -91,6 +87,7 @@ export class LoginService {
         return body.results || {};
     }
     logout() {
+        
         localStorage.removeItem("Username");
         this.loggedIn = false;
       }

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PrivateParkingService {
-   
+    loggedIn:Boolean = false;
 
     constructor(private http: Http) {
       
@@ -56,7 +56,46 @@ export class PrivateParkingService {
            .catch(this.handleError)
     }
 
+        
+        getMyParkingHistory(userId:string): Observable<any> {
+            var testUrl = "http://localhost:5000/getMyParkingHistory?userId="+userId;
+            debugger;
+            return this.http.get("http://localhost:5000/getMyParkingHistory?userId="+userId)
+            .map(res => res.json())
+                .map((res) => {
+                    debugger;
+                    for(var i = 0;i<res.length;i++)
+                    {
+                        if(res[i].startTime == "undefined")
+                        {
+                            res[i].startTime = "NA";
+                        }
+                        if(res[i].endTime == "undefined")
+                        {
+                            res[i].endTime = "NA";
+                        }
+                       
+                    }
+                    return res;
+                })
+    
+               // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+               .catch(this.handleError)
+        }
 
+
+        //Gets columns of alert explorer.
+        bookParkings(userId: string,locationId:string,name:string,startTime:string,endTime:string): Observable<any> {
+            var testUrl = "http://localhost:5000/bookParkings?userId="+userId+"&locationId=" + locationId+"&name=" + name+"&startTime=" + startTime+"&endTime=" + endTime;
+            debugger;
+            return this.http.get("http://localhost:5000/bookParkings?userId="+userId+"&locationId=" + locationId+"&name=" + name+"&startTime=" + startTime+"&endTime=" + endTime)
+            .map(res => res.json())
+            .map((res) => {
+                return res;
+                
+            })
+            .catch(this.handleError)
+        }
 
     //extract settings data
     private extractSettingData(res: Response) {

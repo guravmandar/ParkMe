@@ -24,18 +24,22 @@ export class AppComponent implements OnInit {
   latLong: any[] = [];
   public searchControl: FormControl;
   public zoom: number;
+  isSearch: boolean = true;
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
   private loggedIn: boolean;
   private loggedInUser: string;
-  constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,private router: Router,private LoginService: LoginService,private PrivateParkingService: PrivateParkingService) {
-    
+  private loggedInUserId: string;
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private router: Router, private LoginService: LoginService, private PrivateParkingService: PrivateParkingService) {
+
     this.loggedIn = !!localStorage.getItem('Username');
-    if( this.loggedIn == true){
+    if (this.loggedIn == true) {
       this.loggedInUser = localStorage.getItem('Username');
+
+      this.loggedInUserId = localStorage.getItem('UserId');
     }
-  
+
 
     if (this.loggedIn == false) {
       this.router.navigate(['login']);
@@ -48,7 +52,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     //set google maps defaults
     this.zoom = 15;
     this.latitude = 39.8282;
@@ -98,23 +102,33 @@ export class AppComponent implements OnInit {
           service.nearbySearch(request, callback)
 
           this.PrivateParkingService.getPrivateParkings()
-          .subscribe(queryResults => {
-            for(var i = 0;i<queryResults.length;i++)
-            {
-            this.latLong.push({ 'latitude': queryResults[i].Latitude, 'longitude': queryResults[i].Longitude, 'name' : queryResults[i].Name, 'vicinity':queryResults[i].Vicinity , 'available':queryResults[i].Availability});
-            }
-          });
+            .subscribe(queryResults => {
+              for (var i = 0; i < queryResults.length; i++) {
+                debugger;
+                this.latLong.push(
+                  {
+                    'latitude': queryResults[i].Latitude,
+                    'longitude': queryResults[i].Longitude,
+                    'name': queryResults[i].Name,
+                    'vicinity': queryResults[i].Vicinity,
+                    'available': queryResults[i].Availability,
+                    'id': queryResults[i]._id,
+                    'startTime': queryResults[i].startTime == undefined ? 'NA' : queryResults[i].startTime,
+                    'endTime': queryResults[i].endTime == undefined ? 'NA' : queryResults[i].endTime,
+                  });
+              }
+            });
           function callback(results: any, status: any) {
             let arr = [];
             let list = new Object()
 
-            
+
             for (var i = 0; i < results.length; i++) {
 
-              self.latLong.push({ 'latitude': results[i].geometry.location.lat(), 'longitude': results[i].geometry.location.lng() , 'name' : results[i].name, 'vicinity':results[i].vicinity , 'available':Math.floor(Math.random() * (100 - 1 + 1)) + 1});
+              self.latLong.push({ 'latitude': results[i].geometry.location.lat(), 'longitude': results[i].geometry.location.lng(), 'name': results[i].name, 'vicinity': results[i].vicinity, 'id': results[i]._id, 'available': Math.floor(Math.random() * (100 - 1 + 1)) + 1 });
 
             }
-            debugger;
+
 
           }
         });
@@ -133,9 +147,31 @@ export class AppComponent implements OnInit {
     }
   }
 
-  Logout(){
-    debugger;
+  bookParking(parking: any) {
+
+    this.PrivateParkingService.bookParkings(this.loggedInUserId, parking.id, parking.name, parking.startTime, parking.endTime).subscribe(queryResults => {
+      alert("Booking successful");
+
+    });
+  }
+
+  Logout() {
+
     this.LoginService.logout();
+  }
+
+  History() {
+    this.router.navigate(['login']);
+  }
+
+  toggleSearch() {
+    if (this.isSearch == true) {
+      this.isSearch = false;
+    }
+    else
+    {
+      this.isSearch = true;
+    }
   }
 
 }

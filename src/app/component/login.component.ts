@@ -18,7 +18,6 @@ export class LoginComponent implements OnChanges  {
   }
 
   constructor(private router: Router, private LoginService: LoginService) {
-   debugger;
     this.username = '';
     this.password = '';
 
@@ -31,7 +30,7 @@ export class LoginComponent implements OnChanges  {
     this.LoginService.getUserCredentials(this.username,this.password)
       .subscribe(queryResults => {
        
-        if(queryResults == true){
+        if(queryResults != false){
           alert("Welcome!");
           window.location.reload();
           this.invalid_login = false;
@@ -47,7 +46,7 @@ export class LoginComponent implements OnChanges  {
      
   }
   setUserCredentials() {
-    debugger;
+   
        this.LoginService.setUserCredentials(this.username,this.password)
          .subscribe(queryResults => {
           
