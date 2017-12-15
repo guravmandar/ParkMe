@@ -111,7 +111,7 @@ export class AppComponent implements OnInit {
                     'longitude': queryResults[i].Longitude,
                     'name': queryResults[i].Name,
                     'vicinity': queryResults[i].Vicinity,
-                    'available': queryResults[i].Availability,
+                    'available': queryResults[i].Availability == null? 1: queryResults[i].Availability,
                     'id': queryResults[i]._id,
                     'startTime': queryResults[i].startTime == undefined ? 'NA' : queryResults[i].startTime,
                     'endTime': queryResults[i].endTime == undefined ? 'NA' : queryResults[i].endTime,

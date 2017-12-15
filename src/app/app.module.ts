@@ -13,12 +13,15 @@ import { HttpModule } from '@angular/http';
 import { LoggedInGuard } from './logged-in.guard';
 import { LoginService} from './services/login.service';
 import { PrivateParkingService} from './services/privateparking.service';
-
+import { ShareComponent} from './component/share.component';
+import { MyDatePickerModule } from 'mydatepicker';
+//ShareComponent
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'search', component: SearchComponent},
   { path: 'Home', component: AppComponent },
   { path: 'history', component: ArchiveComponent },
+  { path: 'Share', component: ShareComponent },
 ];
 
 @NgModule({
@@ -32,10 +35,11 @@ const appRoutes: Routes = [
       libraries: ["places"]
     }),
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
-    HttpModule
+    HttpModule,
+    MyDatePickerModule
   ],
   providers: [GoogleMapsAPIWrapper,LoginService,LoggedInGuard,PrivateParkingService],
-  declarations: [ AppComponent,LoginComponent,SearchComponent,ArchiveComponent ],
+  declarations: [ AppComponent,LoginComponent,SearchComponent,ArchiveComponent,ShareComponent ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}

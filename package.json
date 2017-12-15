@@ -25,6 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@agm/core": "^1.0.0-beta.1",
+    "@angular/animations": "^5.0.4",
     "@angular/common": "~4.3.4",
     "@angular/compiler": "~4.3.4",
     "@angular/compiler-cli": "^4.4.5",
@@ -43,6 +44,8 @@
     "express": "^4.16.2",
     "kerberos": "0.0.23",
     "mongodb": "^2.2.33",
+    "mydatepicker": "^2.5.3",
+    "ng-pick-datetime": "^5.0.0-beta.14",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
     "zone.js": "^0.8.4"

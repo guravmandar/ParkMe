@@ -9,6 +9,10 @@
         <div class="navbar-header">
             <a class="navbar-brand" (click)="toggleSearch()" [routerLink]="['/history']">My Bookings</a>
         </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" (click)="toggleSearch()" [routerLink]="['/Share']">Share</a>
+        </div>
+        
         <ul class="nav navbar-nav navbar-right">
             <li *ngIf="loggedIn == true">
                 <a href="#">

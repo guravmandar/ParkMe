@@ -25,10 +25,13 @@
       '@agm/core': 'node_modules/@agm/core/core.umd.js',
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'ng-pick-datetime': 'npm:ng-pick-datetime',
+      'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
+      
       app: {
         defaultExtension: 'js',
         meta: {

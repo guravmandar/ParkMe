@@ -48,10 +48,12 @@ export class LoginService {
         return this.http.get("http://localhost:5000/getUserParkMe?Username="+usernmame+"&Password=" + password)
         .map(res => res.json())
             .map((res) => {
-                
+                debugger;
                 if(res != false) {
                   localStorage.setItem("Username", usernmame);
-                  localStorage.setItem("UserId", res);
+                  localStorage.setItem("UserId", res._id);
+                  localStorage.setItem("Address", res.Address);
+                  debugger;
                   this.loggedIn = true;
                 }
                 return res;

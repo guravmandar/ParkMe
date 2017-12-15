@@ -1,0 +1,55 @@
+<nav class="navbar navbar-default" *ngIf="invalid_login != 'true'">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand header-text">Park Me Login</a>
+        </div>
+    </div>
+</nav>
+
+<hr />
+
+<div class="container-fluid">
+    <form name="loginForm">
+        <div id="share">
+            <div class="row  justify-content-md-center">
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                </div>
+                <div class="col col-md-4 col-lr-4 col-xl-4 text-center">
+                    Share your parking
+                </div>
+            </div>
+            <br/>
+
+            <div class="row  justify-content-md-center">
+
+
+                <div class="col col-md-1  col-lr-1 col-xl-1">
+                    <label class="control-label">Startdate:</label>
+                </div>
+                <div class="col col-md-3  col-lr-3 col-xl-3">
+                    <my-date-picker name="startDate" [options]="myDatePickerOptions" [(ngModel)]="startTime" required></my-date-picker>
+                    <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                </div>
+
+
+            </div>
+            <br/>
+            <div class="row  justify-content-md-center">
+                <div class="col col-md-1  col-lr-1 col-xl-1">
+                    <label class="control-label">Enddate:</label>
+                </div>
+                <div class="col col-md-3  col-lr-3 col-xl-3">
+                    <my-date-picker name="endDate" [options]="myDatePickerOptions" [(ngModel)]="endTime" required></my-date-picker>
+                    <!-- <span class="glyphicon glyphicon-user form-control-feedback"></span> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="Login" class="btn btn-primary" (click)="shareParking()">Share</button>
+                </div>
+            </div>
+            <br/>
+
+        </div>
+    </form>
+</div>

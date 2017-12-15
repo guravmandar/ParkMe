@@ -9,17 +9,17 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PrivateParkingService {
-    loggedIn:Boolean = false;
+    loggedIn: Boolean = false;
 
     constructor(private http: Http) {
-      
-   
+
+
     }
 
 
     //Extract result json data in specified format of rxjsObservable.
     private extractData(res: Response) {
-       
+
         let results = res.json();
 
         let body = { "results": results }
@@ -29,7 +29,7 @@ export class PrivateParkingService {
 
     //Handle error if any.
     private handleError(error: Response | any) {
-      
+
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
@@ -44,58 +44,67 @@ export class PrivateParkingService {
 
     //Gets columns of alert explorer.
     getPrivateParkings(): Observable<any> {
-        
+
         return this.http.get("http://localhost:5000/getPrivateParkings")
-        .map(res => res.json())
+            .map(res => res.json())
             .map((res) => {
-                
+
                 return res;
             })
 
-           // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-           .catch(this.handleError)
+            // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch(this.handleError)
     }
 
-        
-        getMyParkingHistory(userId:string): Observable<any> {
-            var testUrl = "http://localhost:5000/getMyParkingHistory?userId="+userId;
-            debugger;
-            return this.http.get("http://localhost:5000/getMyParkingHistory?userId="+userId)
+
+    getMyParkingHistory(userId: string): Observable<any> {
+        var testUrl = "http://localhost:5000/getMyParkingHistory?userId=" + userId;
+        debugger;
+        return this.http.get("http://localhost:5000/getMyParkingHistory?userId=" + userId)
             .map(res => res.json())
-                .map((res) => {
-                    debugger;
-                    for(var i = 0;i<res.length;i++)
-                    {
-                        if(res[i].startTime == "undefined")
-                        {
-                            res[i].startTime = "NA";
-                        }
-                        if(res[i].endTime == "undefined")
-                        {
-                            res[i].endTime = "NA";
-                        }
-                       
+            .map((res) => {
+                debugger;
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].startTime == "undefined") {
+                        res[i].startTime = "NA";
                     }
-                    return res;
-                })
-    
-               // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-               .catch(this.handleError)
-        }
+                    if (res[i].endTime == "undefined") {
+                        res[i].endTime = "NA";
+                    }
+
+                }
+                return res;
+            })
+
+            // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch(this.handleError)
+    }
 
 
-        //Gets columns of alert explorer.
-        bookParkings(userId: string,locationId:string,name:string,startTime:string,endTime:string): Observable<any> {
-            var testUrl = "http://localhost:5000/bookParkings?userId="+userId+"&locationId=" + locationId+"&name=" + name+"&startTime=" + startTime+"&endTime=" + endTime;
-            debugger;
-            return this.http.get("http://localhost:5000/bookParkings?userId="+userId+"&locationId=" + locationId+"&name=" + name+"&startTime=" + startTime+"&endTime=" + endTime)
+    bookParkings(userId: string, locationId: string, name: string, startTime: string, endTime: string): Observable<any> {
+        var testUrl = "http://localhost:5000/bookParkings?userId=" + userId + "&locationId=" + locationId + "&name=" + name + "&startTime=" + startTime + "&endTime=" + endTime;
+
+        return this.http.get("http://localhost:5000/bookParkings?userId=" + userId + "&locationId=" + locationId + "&name=" + name + "&startTime=" + startTime + "&endTime=" + endTime)
             .map(res => res.json())
             .map((res) => {
                 return res;
-                
+
             })
             .catch(this.handleError)
-        }
+    }
+
+    shareParking(latitude:string,longitude:string,name:string, startTime: any, endTime: any): Observable<any> {
+     debugger;
+
+        return this.http.get("http://localhost:5000/shareParking?latitude=" + latitude + "&longitude=" + longitude + "&name=" + name + "&startTime=" + startTime.date.month +"-"+startTime.date.day+"-"+startTime.date.year + "&endTime="  + endTime.date.month +"-"+endTime.date.day+"-"+endTime.date.year)
+            .map(res => res.json())
+            .map((res) => {
+                debugger;
+                return res;
+
+            })
+            .catch(this.handleError)
+    }
 
     //extract settings data
     private extractSettingData(res: Response) {
@@ -109,11 +118,11 @@ export class PrivateParkingService {
     logout() {
         localStorage.removeItem("Username");
         this.loggedIn = false;
-      }
-    
-      isLoggedIn() {
+    }
+
+    isLoggedIn() {
         return this.loggedIn;
-      }
+    }
 
 
 }

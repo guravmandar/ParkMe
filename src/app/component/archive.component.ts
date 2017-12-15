@@ -47,7 +47,16 @@ export class ArchiveComponent implements OnChanges {
     this.PrivateParkingService.getMyParkingHistory(this.loggedInUserId)
       .subscribe(queryResults => {
         debugger;
-        this.userHistory = queryResults;
+        
+        for (var i = 0; i <queryResults.length; i++) {
+          if (queryResults[i].availability == null) {
+            queryResults[i].availability = 1;
+          }
+          
+
+      }
+
+      this.userHistory = queryResults;
       });
 
 
