@@ -29,6 +29,7 @@ function isBuiltFile(path) {
          }, false);
 }
 
+var sys;
 var allSpecFiles = Object.keys(window.__karma__.files)
   .filter(isSpecFile)
   .filter(isBuiltFile);
